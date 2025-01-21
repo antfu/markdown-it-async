@@ -25,7 +25,7 @@ const html = await md.renderAsync(markdown)
 
 ## How it works?
 
-This package is a thin wrapper around `markdown-it` to support async highlight function. It uses [the approch suggested in `markdown-it`'s docs](https://github.com/markdown-it/markdown-it/blob/master/docs/development.md#i-need-async-rule-how-to-do-it), by putting placeholders in sync mode and then replace them with async results.
+This package is a thin wrapper around `markdown-it` to support async highlight function. It uses [the approach suggested in `markdown-it`'s docs](https://github.com/markdown-it/markdown-it/blob/master/docs/development.md#i-need-async-rule-how-to-do-it), by putting placeholders in sync mode and then replace them with async results.
 
 The goal is to make it easy to use and absorb the "hack" into the library itself.
 
