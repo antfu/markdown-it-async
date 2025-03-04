@@ -74,9 +74,18 @@ export class MarkdownItAsync extends MarkdownIt {
   }
 
   async renderAsync(src: string, env?: any): Promise<string> {
+    return this.rendererRenderAsync(
+      this.parse(src, env),
+      this.options,
+      env,
+    )
+  }
+
+  async rendererRenderAsync(tokens: Array, options: any, env: any): Promise<string> {
     this.options.highlight = wrapHightlight(this.options.highlight, this.placeholderMap)
     this.disableWarn = true
-    const result = this.render(src, env)
+    const result = this.renderer.render(tokens, this.options, env)
+
     this.disableWarn = false
     return replaceAsync(result, placeholderRe, async (match, id) => {
       if (!this.placeholderMap.has(id))
