@@ -39,6 +39,7 @@ function randStr(): string {
 }
 
 export type MarkdownItAsyncPlaceholderMap = Map<string, [promise: Promise<string>, str: string, lang: string, attrs: string]>
+export type Token = ReturnType<MarkdownIt['parse']>[number]
 
 export class MarkdownItAsync extends MarkdownIt {
   placeholderMap: MarkdownItAsyncPlaceholderMap
@@ -81,10 +82,10 @@ export class MarkdownItAsync extends MarkdownIt {
     )
   }
 
-  async rendererRenderAsync(tokens: Array, options: any, env: any): Promise<string> {
+  async rendererRenderAsync(tokens: Token[], options: Options, env: any): Promise<string> {
     this.options.highlight = wrapHightlight(this.options.highlight, this.placeholderMap)
     this.disableWarn = true
-    const result = this.renderer.render(tokens, this.options, env)
+    const result = this.renderer.render(tokens, options, env)
 
     this.disableWarn = false
     return replaceAsync(result, placeholderRe, async (match, id) => {
